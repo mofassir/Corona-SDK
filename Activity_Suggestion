@@ -1,0 +1,43 @@
+-----------------------------------------------------------------------------------------
+--
+-- main.lua
+--
+-----------------------------------------------------------------------------------------
+
+-- Your code here
+
+local json = require( "json" )
+ 
+local function handleResponse( event )
+
+
+    if not event.isError then
+        local response = json.decode( event.response )
+        print( event.response )
+local myText =	display.newText( "Activity:", 150, 100, native.systemFont, 16 );
+	myText:setFillColor( 1, 0.2, 0.2 )
+        display.newText( response.activity, 150, 150, native.systemFont, 16 );
+local secText =	display.newText( "Type of Activity:", 150, 200, native.systemFont, 16 );
+	secText:setFillColor( 1, 0.2, 0.2 )
+        display.newText( response.type,  150, 250, native.systemFont, 16 );
+local noText =	display.newText( "# of Participants:", 150, 300, native.systemFont, 16 );
+	noText:setFillColor( 1, 0.2, 0.2 )
+        display.newText( response.participants, 150, 350, native.systemFont, 16 );
+        display.newText( response.link,  100, 450, native.systemFont, 16 );
+        
+    else
+        print( "Error!" )
+    end
+
+ 
+    return
+end
+
+
+network.request( "https://www.boredapi.com/api/activity", "GET", handleResponse )
+
+
+  
+-- network.request( "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/metadata", "GET", handleResponse )
+-- https://api.agify.io?name=bella
+-- https://www.boredapi.com/api/activity
